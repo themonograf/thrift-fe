@@ -1,18 +1,45 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-function ProductCard() {
+interface ProductIType {
+  created_at: Date;
+  deleted_at: Date;
+  description: String;
+  id: Number;
+  name: String;
+  product_category_id: Number;
+  product_image: any[];
+  updated_at: Date;
+  variant: String;
+}
+
+function ProductCard({
+  id,
+  name,
+  description,
+  variant,
+  product_image,
+  product_category_id,
+  updated_at,
+  created_at,
+  deleted_at,
+}: ProductIType) {
   return (
-    <div className="w-72 rounded-xl bg-white shadow-md duration-500 hover:scale-105 hover:shadow-xl">
-      <a href="#">
-        <img
-          src="https://images.unsplash.com/photo-1651950519238-15835722f8bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mjh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-          alt="Product"
-          className="h-80 w-72 rounded-t-xl object-cover"
-        />
+    <Link href={`product/${id}`}>
+      <div className="w-72 cursor-pointer rounded-xl bg-white shadow-md duration-500 hover:scale-105 hover:shadow-xl">
+        <div className="relative h-80 w-72 overflow-hidden rounded-t-xl object-cover">
+          <Image
+            src="https://images.unsplash.com/photo-1649261191624-ca9f79ca3fc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            alt="Product"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
         <div className="w-72 px-4 py-3">
           <span className="mr-3 text-xs uppercase text-gray-400">Brand</span>
           <p className="block truncate text-lg font-bold capitalize text-black">
-            Product Name
+            {name || "Product Name"}
           </p>
           <div className="flex items-center">
             <p className="my-3 cursor-auto text-lg font-semibold text-black">
@@ -21,7 +48,7 @@ function ProductCard() {
             <del>
               <p className="ml-2 cursor-auto text-sm text-gray-600">$199</p>
             </del>
-            <div className="ml-auto">
+            <div className="ml-auto" onClick={(e) => e.stopPropagation()}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -39,8 +66,8 @@ function ProductCard() {
             </div>
           </div>
         </div>
-      </a>
-    </div>
+      </div>
+    </Link>
   );
 }
 
